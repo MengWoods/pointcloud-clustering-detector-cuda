@@ -121,6 +121,7 @@ point_cloud_visualizer:
 
 object_detector:
   enable: true
+  use_cuda: true      # If true, uses the CUDA-based clustering implementation.
   cluster_tolerance: 0.5
   min_cluster_size: 50
   max_cluster_size: 5000
