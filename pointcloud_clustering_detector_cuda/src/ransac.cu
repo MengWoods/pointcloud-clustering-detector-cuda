@@ -174,5 +174,5 @@ void ransacFitPlaneGPU(const Point *d_points, int num_points, int max_iterations
     // Compute elapsed time (ms)
     float elapsed_ms = 0.0f;
     cudaEventElapsedTime(&elapsed_ms, start, stop);
-    std::cout << "[Ransac CUDA]   - GPU Kernel duration: " << elapsed_ms << " ms\n";
+    // std::cout << "[Ransac CUDA]   - GPU Kernel duration: " << elapsed_ms << " ms\n";
 }
