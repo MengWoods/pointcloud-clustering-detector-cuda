@@ -121,21 +121,21 @@ int main(int argc, char** argv)
         // Object Detection
         if (object_detection)
         {
-            if (verbose) std::cout << "\t[ObjectDetector] Starting CPU clustering..." << std::endl;
-            auto t_cpu_start = std::chrono::steady_clock::now();
-            std::vector<PointCloudPtr> cpu_clusters = object_detector.detectObjectsCPU(non_ground_cloud, ground_plane);
-            auto t_cpu_end = std::chrono::steady_clock::now();
-            auto cpu_duration = std::chrono::duration_cast<std::chrono::milliseconds>(t_cpu_end - t_cpu_start).count();
-            if (1)
-            {
-                std::cout << "CPU Clustering: " << cpu_duration << " ms" << std::endl;
-            }
-            std::cout << "\t[ObjectDetector] Found " << cpu_clusters.size() << " objects (CPU)." << std::endl;
+            // if (verbose) std::cout << "\t[ObjectDetector] Starting CPU clustering..." << std::endl;
+            // auto t_cpu_start = std::chrono::steady_clock::now();
+            // std::vector<PointCloudPtr> cpu_clusters = object_detector.detectObjectsCPU(non_ground_cloud, ground_plane);
+            // auto t_cpu_end = std::chrono::steady_clock::now();
+            // auto cpu_duration = std::chrono::duration_cast<std::chrono::milliseconds>(t_cpu_end - t_cpu_start).count();
+            // if (1)
+            // {
+            //     std::cout << "CPU Clustering: " << cpu_duration << " ms" << std::endl;
+            // }
+            // std::cout << "\t[ObjectDetector] Found " << cpu_clusters.size() << " objects (CPU)." << std::endl;
 
 
             if (verbose) std::cout << "\t[ObjectDetector] Starting CUDA clustering..." << std::endl;
             auto t_cuda_start = std::chrono::steady_clock::now();
-            std::vector<PointCloudPtr> cuda_clusters = object_detector.detectObjectsCUDA(non_ground_cloud);
+            std::vector<PointCloudPtr> cuda_clusters = object_detector.detectObjectsCUDA(non_ground_cloud, ground_plane);
             auto t_cuda_end = std::chrono::steady_clock::now();
             auto cuda_duration = std::chrono::duration_cast<std::chrono::milliseconds>(t_cuda_end - t_cuda_start).count();
             if (1)
@@ -147,7 +147,7 @@ int main(int argc, char** argv)
             // Note: For visualization, you can choose to visualize either CPU or CUDA results
             if (visualization)
             {
-                point_cloud_visualizer.pushClusteredFrame(cloud_copy, ground_plane, cpu_clusters);
+                point_cloud_visualizer.pushClusteredFrame(cloud_copy, ground_plane, cuda_clusters);
             }
         }
         else

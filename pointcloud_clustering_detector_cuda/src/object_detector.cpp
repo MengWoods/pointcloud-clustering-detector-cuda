@@ -6,6 +6,9 @@
  */
 #include "object_detector.h"
 
+// Forward declaration.
+std::vector<PointCloudPtr> detectObjectsCUDA_impl(const PointCloudPtr& non_ground_cloud, const std::vector<float>& ground_plane);
+
 ObjectDetector::ObjectDetector(const YAML::Node& config) : config_(config)
 {
     // Load clustering parameters from the configuration file
@@ -155,4 +158,10 @@ std::vector<PointCloudPtr> ObjectDetector::filterNonGroundObjects(const std::vec
         }
     }
     return filtered_clusters;
+}
+
+std::vector<PointCloudPtr> ObjectDetector::detectObjectsCUDA(const PointCloudPtr& non_ground_cloud, const std::vector<float>& ground_plane)
+{
+    // Call the CUDA implementation function
+    return detectObjectsCUDA_impl(non_ground_cloud, ground_plane);
 }

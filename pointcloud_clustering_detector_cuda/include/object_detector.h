@@ -31,13 +31,12 @@ public:
     std::vector<PointCloudPtr> detectObjectsCPU(const PointCloudPtr& non_ground_cloud, const std::vector<float>& ground_plane) const;
 
     /**
-     * @brief Performs CUDA-based clustering on the non-ground point cloud.
+     * @brief Performs CUDA-based Euclidean clustering on the non-ground point cloud.
      * @param non_ground_cloud The input point cloud containing non-ground points.
+     * @param ground_plane The estimated ground plane coefficients (A, B, C, D).
      * @return A vector of point clouds, where each point cloud represents a detected object.
-     * @note This is a placeholder for a CUDA implementation. A full implementation
-     * would require a custom CUDA kernel or a specialized library.
      */
-    std::vector<PointCloudPtr> detectObjectsCUDA(const PointCloudPtr& non_ground_cloud) const;
+    std::vector<PointCloudPtr> detectObjectsCUDA(const PointCloudPtr& non_ground_cloud, const std::vector<float>& ground_plane);
 
 private:
     /**
@@ -54,7 +53,6 @@ private:
      * @return A new vector of point clouds that pass the filter.
      */
     std::vector<PointCloudPtr> filterNonGroundObjects(const std::vector<PointCloudPtr>& clusters, const std::vector<float>& ground_plane) const;
-
 
     struct BoundingBoxLimits
     {
